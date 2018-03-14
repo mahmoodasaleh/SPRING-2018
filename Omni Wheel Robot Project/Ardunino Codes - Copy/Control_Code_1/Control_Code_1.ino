@@ -159,21 +159,33 @@ void loop()
   delay(((1/FREQ) * 1000) - (end_time - start_time));
   //Serial.println(end_time - start_time);
   //================================================================
-
+  //speed1= myEnc1.read();
   digitalWrite(M1_DIR,HIGH); 
   analogWrite(M1_PWM,255);  
-  /*speed1= myEnc1.read();
-  Serial.println(speed1);*/
+  
+  speed1= myEnc1.read();
+  myEnc1.write(0);
+  Serial.println(speed1);  
 }
 
 //*******************************************************************
 
 void timerIsr()
 { 
+<<<<<<< HEAD
   speed1= myEnc1.read();
   uint32_t speed11=speed1/0.05;
   speed1=0;
   Serial.println(speed1);
+=======
+  //speed1= myEnc1.read();
+  //myEnc1.write(0);
+  uint16_t speed11=speed1;
+  speed11=speed11/38.4;
+  //speed1=0;
+  //Serial.println(speed1);
+  //speed1=0;
+>>>>>>> 6cedac8a87d9147d22a0a23a8e18ef79febc7c4f
   }
 
 //*******************************************************************
