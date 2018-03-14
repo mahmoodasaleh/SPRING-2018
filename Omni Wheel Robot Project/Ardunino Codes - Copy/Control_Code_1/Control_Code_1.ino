@@ -51,6 +51,7 @@ void setup()
 {
 //===============================================================
   Timer1.initialize(50000);  //every 50 milli_sec  for timer one 
+  Timer1.attachInterrupt(timerIsr);
   //================IMU Setup====================================   
   int error;
   uint8_t c; //unsigned intger 8bits
@@ -63,7 +64,7 @@ void setup()
   Wire.begin();
   //----------------------------------------------------------
   //write in PWR_MGMT_1 (power mangement) 0 to wake up (0x6b--reg add) (0x00--mag)
-  i2c_write_reg (MPU6050_I2C_ADDRESS, 0x6b, 0x00);  
+//  i2c_write_reg (MPU6050_I2C_ADDRESS, 0x6b, 0x00);  
   //----------------------------------------------------------------------
   // CONFIG:
   // Low pass filter samples, 1khz sample rate
@@ -161,6 +162,8 @@ void loop()
 
   digitalWrite(M1_DIR,HIGH); 
   analogWrite(M1_PWM,255);  
+  /*speed1= myEnc1.read();
+  Serial.println(speed1);*/
 }
 
 //*******************************************************************
@@ -168,10 +171,12 @@ void loop()
 void timerIsr()
 {
   
-  Encoder myEnc1(4, 5);
-  speed1= myEnc1.read();
+  speed1= (myEnc1.read())/0.05;
   Serial.println(speed1);
+  speed1=0;
   
+ 
+  }
   }
 
 //*******************************************************************

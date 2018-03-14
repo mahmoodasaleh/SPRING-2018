@@ -13,7 +13,7 @@ int Dir1 = 8;
 int Dir2 = 11;
 int Dir3 = 2;
 
-void forward(){
+void back(){
   analogWrite(10, 250);
   analogWrite(9, 250);
   analogWrite(3, 0);
@@ -22,7 +22,7 @@ void forward(){
   digitalWrite(2, LOW);
 
 }
-void back(){
+void forward(){
   analogWrite(10, 250);
   analogWrite(9, 250);
   analogWrite(3, 0);
@@ -80,7 +80,7 @@ void setup() {
     while (!Serial) {
     ; // wait for serial port to connect. Needed for native USB port only
   }
-  OmniBlurtooth.begin(4800);
+  OmniBlurtooth.begin(9600);
   OmniBlurtooth.println("Virtual Serial Pins Test");
 
     
