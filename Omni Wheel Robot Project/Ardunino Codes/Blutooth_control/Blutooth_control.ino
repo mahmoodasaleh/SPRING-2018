@@ -12,18 +12,16 @@ int MW3 =3;
 
 
 
-SoftwareSerial OmniBlurtooth(12, 13);
+SoftwareSerial OmniBlurtooth(A2, A3);
 
 void setup() {
     Serial.begin(9600);          // initiete the signal for blutooth moule:
-    pinMode(3, OUTPUT);
-     pinMode(9, OUTPUT);
-      pinMode(10, OUTPUT);
+  
     while (!Serial) {
     ; // wait for serial port to connect. Needed for native USB port only
   }
   OmniBlurtooth.begin(4800);
-    OmniBlurtooth.println("Virtual Serial Pins Test");
+  OmniBlurtooth.println("Virtual Serial Pins Test");
 
     
 }
@@ -44,7 +42,7 @@ void loop() {
   {
 
  // Omni.setCarAdvance(100);
- analogWrite(9, 250);
+ //analogWrite(9, 250);
   Serial.println("Robot Moving Forward");
   }
  else if(receive1=='B')
@@ -62,15 +60,17 @@ void loop() {
 Serial.println("Robot Turning Right");
   }
 
-//  else {
+ 
+  else if(receive1=='L')
+  {
+    Serial.println("Signal is L");
+
+  
+  }
+//   else {
 //
 //    Serial.println("Signal is Off");
 //    }
-//  if(receive1=='L')
-//  {
-// 
-//  
-//  }
    //Omni.demoActions(100);
     
 }
