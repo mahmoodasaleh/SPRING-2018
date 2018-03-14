@@ -31,7 +31,7 @@ int M1_PWM=3;
 //int M1_ENCA=4; 
 //int M1_ENCA=5;
 Encoder myEnc1(4, 5);
-volatile long speed1; 
+volatile uint32_t speed1=0; 
 
 int M2_DIR=8; 
 int M2_PWM=9; 
@@ -169,14 +169,11 @@ void loop()
 //*******************************************************************
 
 void timerIsr()
-{
-  
-  speed1= (myEnc1.read())/0.05;
-  Serial.println(speed1);
+{ 
+  speed1= myEnc1.read();
+  uint16_t speed11=speed1/0.05;
   speed1=0;
-  
- 
-  
+  Serial.println(speed1);
   }
 
 //*******************************************************************
