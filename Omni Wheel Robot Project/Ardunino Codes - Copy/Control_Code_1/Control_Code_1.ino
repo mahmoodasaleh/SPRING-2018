@@ -171,7 +171,7 @@ void loop()
 void timerIsr()
 { 
   speed1= myEnc1.read();
-  uint16_t speed11=speed1/0.05;
+  uint32_t speed11=speed1/0.05;
   speed1=0;
   Serial.println(speed1);
   }
