@@ -13,6 +13,14 @@ int Dir1 = 8;
 int Dir2 = 11;
 int Dir3 = 2;
 
+void Stop(){
+  analogWrite(10, 0);
+  analogWrite(9, 0);
+  analogWrite(3, 0);
+  digitalWrite(11, LOW);
+  digitalWrite(8, LOW);
+  digitalWrite(2, LOW);
+}
 void back(){
   analogWrite(10, 250);
   analogWrite(9, 250);
@@ -144,11 +152,20 @@ Serial.println("Robot Turning Right");
 
   
   }
+   else if(receive1=='S')
+  {
+    Stop();
+    Serial.println("Ropot is Turned off");
+  }
+    
+
+  
+  }
 //   else {
 //
 //    Serial.println("Signal is Off");
 //    }
    //Omni.demoActions(100);
     
-}
+
 
