@@ -60,7 +60,7 @@ volatile int speed3;
 void setup() 
 {
 //===============================================================
-  Timer1.initialize(50000);  //every 50 milli_sec  for timer one 
+  Timer1.initialize(1000000);  //every 50 milli_sec  for timer one 
   Timer1.attachInterrupt(timerIsr);
   //================IMU Setup====================================   
   int error;
@@ -98,9 +98,7 @@ void setup()
   digitalWrite(13, HIGH);               
   //calibrate();                        //for calibration only
   digitalWrite(13, LOW);
-  //Serial.write("done.");              //for calibration only
-//===============================================================
-  
+  //Serial.write("done.");              //for calibration only  
 //===============================================================
 //================ 3 Motors Configuration =======================
   pinMode(M1_DIR,OUTPUT);  
@@ -127,6 +125,22 @@ void setup()
 
 void loop() 
 {
+  //===================== Motor Configuration ======================
+  digitalWrite(M1_DIR,LOW); 
+  analogWrite(M1_PWM,255); 
+  
+  aState1 = digitalRead(M1_ENCA); // Reads the "current" state of the M1_ENCA
+    // If the previous and the current state of the outputA are different, that means a Pulse has occured    
+    if (aState1 != aLastState1){     
+      // If the M1_ENCB state is different to the outputA state, that means the encoder is rotating clockwise
+      if (digitalRead(M1_ENCB) != aState1) { 
+      counter1 ++;
+      } else {
+        counter1 --;
+      }   
+    }
+    aLastState1 = aState1;
+    
   //================================================================
   //====================imu values generating======================= 
   
@@ -179,22 +193,6 @@ void loop()
   delay(((1/FREQ) * 1000) - (end_time - start_time));
   //Serial.println(end_time - start_time);
   //================================================================
-  //===================== Motor Configuration ======================
-  digitalWrite(M1_DIR,LOW); 
-  analogWrite(M1_PWM,255); 
-  
-  aState1 = digitalRead(M1_ENCA); // Reads the "current" state of the M1_ENCA
-    // If the previous and the current state of the outputA are different, that means a Pulse has occured    
-    if (aState1 != aLastState1){     
-      // If the M1_ENCB state is different to the outputA state, that means the encoder is rotating clockwise
-      if (digitalRead(M1_ENCB) != aState1) { 
-      counter1 ++;
-      } else {
-        counter1 --;
-      }   
-    }
-    aLastState1 = aState1; 
-  
 }
 
 //*******************************************************************
