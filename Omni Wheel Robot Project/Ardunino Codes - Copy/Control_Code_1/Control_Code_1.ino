@@ -172,6 +172,12 @@ void loop()
 
 void timerIsr()
 { 
+<<<<<<< HEAD
+  speed1= myEnc1.read();
+  uint32_t speed11=speed1/0.05;
+  speed1=0;
+  Serial.println(speed1);
+=======
   //speed1= myEnc1.read();
   //myEnc1.write(0);
   uint16_t speed11=speed1;
@@ -179,6 +185,7 @@ void timerIsr()
   //speed1=0;
   //Serial.println(speed1);
   //speed1=0;
+>>>>>>> 6cedac8a87d9147d22a0a23a8e18ef79febc7c4f
   }
 
 //*******************************************************************
