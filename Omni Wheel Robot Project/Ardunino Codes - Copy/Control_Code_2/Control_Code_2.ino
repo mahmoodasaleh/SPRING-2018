@@ -29,7 +29,9 @@ int M1_DIR=2;
 int M1_PWM=3; 
 int M1_ENCA=4; 
 int M1_ENCB=5;
-int counter1 = 0; 
+volatile uint32_t counter1 = 0; 
+volatile uint32_t lastcounter1=0;
+volatile uint32_t dcounter1=0;
 int aState1;
 int aLastState1;
 volatile int speed1;
@@ -178,20 +180,11 @@ void loop()
   //Serial.println(end_time - start_time);
   //================================================================
   //===================== Motor Configuration ======================
- digitalWrite(M1_DIR,LOW); 
-    analogWrite(M1_PWM,255); 
-   
-}
-
-//*******************************************************************
-
-void timerIsr()
-{ 
-
-      
-    aState1 = digitalRead(M1_ENCA); // Reads the "current" state of the M1_ENCA
-    // If the previous and the current state of the outputA are different, that means a Pulse has occured
-    
+  digitalWrite(M1_DIR,LOW); 
+  analogWrite(M1_PWM,255); 
+  
+  aState1 = digitalRead(M1_ENCA); // Reads the "current" state of the M1_ENCA
+    // If the previous and the current state of the outputA are different, that means a Pulse has occured    
     if (aState1 != aLastState1){     
       // If the M1_ENCB state is different to the outputA state, that means the encoder is rotating clockwise
       if (digitalRead(M1_ENCB) != aState1) { 
@@ -199,17 +192,20 @@ void timerIsr()
       } else {
         counter1 --;
       }   
-    } 
-    aLastState1 = aState1;  
- // Serial.println(counter1); 
+    }
+    aLastState1 = aState1; 
   
- j1=j1+1;
- if(j1>500){
-    
+}
+
+//*******************************************************************
+
+void timerIsr()
+{ 
+     
+    //dcounter1=counter1-lastcounter1;
+    //lastcounter1=counter1; 
     Serial.println(counter1); 
     counter1=0;
-    j1=0;
- }
   }
 
 //*******************************************************************
