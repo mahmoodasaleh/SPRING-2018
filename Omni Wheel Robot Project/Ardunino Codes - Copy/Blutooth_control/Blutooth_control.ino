@@ -64,10 +64,10 @@ void rotate(){
 void circle(){
   analogWrite(10, 250);
   analogWrite(9, 250);
-  analogWrite(3, 0);
+  analogWrite(3, 250);
   digitalWrite(11, LOW);
   digitalWrite(8, LOW);
-  digitalWrite(2, LOW);
+  digitalWrite(2, HIGH);
 }
 
 
